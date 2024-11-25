@@ -18,8 +18,20 @@ public class Map {
         removeEntity(from);
         setEntity(to, entity);
     }
-    private Entity getEntity(Coordinates coordinates) {
+    public Entity getEntity(Coordinates coordinates) {
         return entities.get(coordinates);
     }
 
+    public void setMapWithCustomHeightWidth(){
+        String[] mapSize = (InputMapSize.input()).split("x");
+        int width = Integer.parseInt(mapSize[0]);
+        int height = Integer.parseInt(mapSize[1]);
+        for (int widthIndex = 0; widthIndex < width; widthIndex++) {
+            for (int heightIndex = 0; heightIndex < height; heightIndex++) {
+                Coordinates coordinates = new Coordinates(widthIndex, heightIndex);
+                setEntity(coordinates, new Entity(coordinates) {
+                });
+            }
+        }
+    }
 }
