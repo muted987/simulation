@@ -5,12 +5,10 @@ import main.java.com.muted987.Entities.Entity;
 
 public class Creature extends Entity {
 
-    public final int health;
-    public final int moveSpeed;//скорость передвижения существа
+    public final int moveSpeed = 1;//скорость передвижения существа
 
-    public Creature(Coordinates coordinates, int health, int moveSpeed) {
-        super(coordinates);
-        this.health = health;
-        this.moveSpeed = moveSpeed;
+    public Creature(Coordinates coordinates, String unicodeSymbol) {
+        super(coordinates, unicodeSymbol);
     }
 }
+

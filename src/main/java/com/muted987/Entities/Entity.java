@@ -6,9 +6,11 @@ import java.util.Objects;
 
 public abstract class Entity {
     public Coordinates coordinates;
+    public final String unicodeSymbol;
 
-    public Entity(Coordinates coordinates) {
+    public Entity(Coordinates coordinates, String unicodeSymbol) {
         this.coordinates = coordinates;
+        this.unicodeSymbol = unicodeSymbol;
     }
 
     @Override

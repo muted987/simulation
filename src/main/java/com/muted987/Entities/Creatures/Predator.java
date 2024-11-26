@@ -4,10 +4,9 @@ import main.java.com.muted987.Coordinates;
 
 public class Predator extends Creature {
 
-    public final int damage;//урон наносимый хищником
+    public final int damage = 1;//урон наносимый хищником
 
-    public Predator(Coordinates coordinates, int health, int moveSpeed, int damage) {
-        super(coordinates, health, moveSpeed);
-        this.damage = damage;
+    public Predator(Coordinates coordinates, String unicodeSymbol) {
+        super(coordinates, unicodeSymbol);
     }
 }
