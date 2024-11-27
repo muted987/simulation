@@ -1,4 +1,4 @@
-package main.java.com.muted987;
+package main.java.com.muted987.Map;
 
 public class MapRender {
     public void renderer(Map map, int height, int width) {
@@ -9,7 +9,7 @@ public class MapRender {
                 if (map.isFieldEmpty(coordinates)) {
                     line.append(" ✖ ");
                 } else {
-                    line.append(" " + map.getEntity(coordinates).unicodeSymbol + " ");
+                    line.append(" ").append(map.getEntity(coordinates).unicodeSymbol).append(" ");
                 }
             }
             System.out.println(line);

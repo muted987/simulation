@@ -1,4 +1,4 @@
-package main.java.com.muted987;
+package main.java.com.muted987.Map;
 
 import java.util.Random;
 

@@ -12,8 +12,4 @@ public class InputUtils {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
-
-    static public void inputValidation(String input) {
-    }
-
 }

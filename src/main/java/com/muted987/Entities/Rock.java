@@ -1,7 +1,6 @@
 package main.java.com.muted987.Entities;
 
-import jdk.nashorn.internal.ir.Symbol;
-import main.java.com.muted987.Coordinates;
+import main.java.com.muted987.Map.Coordinates;
 
 public class Rock extends Entity{
 

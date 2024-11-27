@@ -1,4 +1,4 @@
-package main.java.com.muted987;
+package main.java.com.muted987.Map;
 
 import java.util.Objects;
 
@@ -23,8 +23,4 @@ public class Coordinates {
     public int hashCode() {
         return Objects.hash(height, width);
     }
-//    @Override
-//    public String toString(){
-//        return "h " + height + " w " + width;
-//    }
 }
