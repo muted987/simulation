@@ -1,4 +1,4 @@
-package src.com.muted987.simulation.entities;
+package com.muted987.simulation.entities;
 
 public abstract class Entity {
     public Entity(EntityName entityName) {

@@ -1,4 +1,4 @@
-package src.com.muted987.simulation.simulationmap.entityarragement;
+package com.muted987.simulation.simulationmap.entityarragement;
 
 import com.muted987.simulation.simulationmap.AmountOfEntities;
 import com.muted987.simulation.simulationmap.SimulationMap;

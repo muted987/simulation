@@ -1,12 +1,12 @@
-package src.com.muted987.simulation.entities;
+package com.muted987.simulation.entities;
 
 public enum EntityName {
-    GRASS("Grass"),
-    TREE("Tree"),
-    ROCK("Rock"),
-    HERBIVORE("Herbivore"),
-    PREDATOR("Predator");
-    private String entityName;
+    GRASS("G"),
+    TREE("T"),
+    ROCK("R"),
+    HERBIVORE("H"),
+    PREDATOR("P");
+    private final String entityName;
 
     EntityName(String entityName) {
         this.entityName = entityName;

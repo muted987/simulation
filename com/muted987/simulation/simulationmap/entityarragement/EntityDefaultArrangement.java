@@ -1,7 +1,9 @@
-package src.com.muted987.simulation.simulationmap.entityarragement;
+package com.muted987.simulation.simulationmap.entityarragement;
 
 import com.muted987.simulation.Coordinates;
 import com.muted987.simulation.entities.*;
+import com.muted987.simulation.entities.creatures.Herbivore;
+import com.muted987.simulation.entities.creatures.Predator;
 import com.muted987.simulation.simulationmap.SimulationMap;
 
 public class EntityDefaultArrangement extends EntityArrangement{

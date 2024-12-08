@@ -1,4 +1,4 @@
-package src.com.muted987.simulation.entities.creatures;
+package com.muted987.simulation.entities.creatures;
 
 import com.muted987.simulation.Coordinates;
 import com.muted987.simulation.entities.Entity;
@@ -7,7 +7,7 @@ import com.muted987.simulation.simulationmap.SimulationMap;
 
 public abstract class Creature extends Entity {
 
-    private Coordinates coordinates;
+    private final Coordinates coordinates;
 
     public Creature(EntityName entityName, Coordinates coordinates) {
         super(entityName);

@@ -1,4 +1,4 @@
-package src.com.muted987.simulation;
+package com.muted987.simulation;
 
 import java.util.Objects;
 

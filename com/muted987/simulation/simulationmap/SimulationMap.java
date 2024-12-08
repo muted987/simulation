@@ -1,7 +1,8 @@
-package src.com.muted987.simulation.simulationmap;
+package com.muted987.simulation.simulationmap;
 
 import com.muted987.simulation.Coordinates;
 import com.muted987.simulation.entities.Entity;
+import com.muted987.simulation.entities.creatures.Creature;
 
 import java.util.HashMap;
 
@@ -32,5 +33,20 @@ public class SimulationMap {
     }
     public boolean isFieldFree(Coordinates coordinates) {
         return !simulationMap.containsKey(coordinates);
+    }
+    public HashMap<Coordinates, Creature> getAllCreatures() {
+        HashMap<Coordinates, Creature> creatures = new HashMap<>();
+        for (Coordinates coordinates : simulationMap.keySet()) {
+            if (isCreature(coordinates)) {
+                creatures.put(coordinates, getCreature(coordinates));
+            }
+        }
+        return creatures;
+    }
+    private Creature getCreature(Coordinates coordinates) {
+        return (Creature) simulationMap.get(coordinates);
+    }
+    private boolean isCreature(Coordinates coordinates) {
+        return getEntity(coordinates) instanceof Creature;
     }
 }

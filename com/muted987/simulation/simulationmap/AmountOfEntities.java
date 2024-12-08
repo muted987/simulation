@@ -1,4 +1,4 @@
-package src.com.muted987.simulation.simulationmap;
+package com.muted987.simulation.simulationmap;
 
 import com.muted987.simulation.entities.EntityName;
 
