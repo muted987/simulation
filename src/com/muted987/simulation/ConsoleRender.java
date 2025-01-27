@@ -7,31 +7,33 @@ import com.muted987.simulation.simulationMap.SimulationMap;
 import java.util.Map;
 
 public class ConsoleRender {
-    SimulationMap simulationMap = new SimulationMap();
-    int maxX = simulationMap.getMAX_X();
-    int maxY = simulationMap.getMAX_Y();
 
-    public void render() {
-        for (int x = 0; x < maxX; x++) {
+    public void render(SimulationMap simulationMap) {
+        int maxX = simulationMap.getMAX_X();
+        int maxY = simulationMap.getMAX_Y();
+        System.out.println("—————————————————————————————————————————");
+        for (int y = maxY; y >= 1; y--) {
             StringBuilder line = new StringBuilder();
-            for (int y = 0; y < maxY; y++) {
+            for (int x = 1; x <= maxX; x++) {
                 Coordinates coordinates = new Coordinates(x, y);
-                line.append(getSymbolForCell(coordinates)).append("|");
+                line.append(getSymbolForCell(coordinates, simulationMap)).append("|");
             }
-            System.out.println("|" + line);
-            System.out.println("—————————————————————————————");
+            System.out.println("|" + line + " " + y);
+            System.out.println("—————————————————————————————————————————");
         }
+        System.out.print("  ");
+        for (int x = 1; x <= maxX; x++) System.out.print(x + "   ");
     }
 
-    private String getSymbolForCell(Coordinates coordinates) {
-        return " " + fromEntityToString(coordinates) + " ";
+    private String getSymbolForCell(Coordinates coordinates, SimulationMap simulationMap) {
+        return " " + fromEntityToString(coordinates, simulationMap) + " ";
     }
 
-    private String fromEntityToString(Coordinates coordinates) {
+    private String fromEntityToString(Coordinates coordinates, SimulationMap simulationMap) {
         Entity entity = simulationMap.getEntity(coordinates);
         if (entity != null) {
             return entity.getEntitySymbol().getUnicodeSymbol();
-        } else return "   ";
+        } else return " ";
     }
 
 }
