@@ -41,4 +41,7 @@ public class SimulationMap {
     }
 
 
+    public boolean isCellEmpty(Coordinates coordinates) {
+        return !simulationMap.containsKey(coordinates);
+    }
 }
