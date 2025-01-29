@@ -1,12 +1,11 @@
-package com.muted987.simulation;
+package com.muted987.simulation.simulationMap.arrangement;
 
+import com.muted987.simulation.EntityFactory;
 import com.muted987.simulation.entity.*;
-import com.muted987.simulation.entity.creature.Herbivore;
-import com.muted987.simulation.entity.creature.Predator;
 import com.muted987.simulation.simulationMap.SimulationMap;
 
-public class EntityArrangement {
-    public SimulationMap defaultArrangement() {
+public class DefaultArrangement extends Arrangement {
+    public SimulationMap arrange() {
         Coordinates herbivoreCoordinates = new Coordinates(1, 3);
         Coordinates predatorCoordinates = new Coordinates(10, 8);
         Coordinates firstGrassCoordinates = new Coordinates(7, 6);
