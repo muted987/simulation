@@ -7,8 +7,8 @@ public class Predator extends Creature{
 
     private int damage;
 
-    public Predator(Coordinates coordinates, EntitySymbol entitySymbol, int moveSpeed, int healthPoint, int damage) {
-        super(coordinates, entitySymbol, moveSpeed, healthPoint);
+    public Predator(EntitySymbol entitySymbol, int moveSpeed, int healthPoint, int damage) {
+        super(entitySymbol, moveSpeed, healthPoint);
         this.damage = damage;
     }
 

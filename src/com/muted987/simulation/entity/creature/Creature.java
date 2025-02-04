@@ -8,8 +8,8 @@ public abstract class Creature extends Entity {
     int moveSpeed;
     int healthPoint;
 
-    public Creature(Coordinates coordinates, EntitySymbol entitySymbol, int moveSpeed, int healthPoint) {
-        super(coordinates, entitySymbol);
+    public Creature(EntitySymbol entitySymbol, int moveSpeed, int healthPoint) {
+        super(entitySymbol);
         this.moveSpeed = moveSpeed;
         this.healthPoint = healthPoint;
     }
