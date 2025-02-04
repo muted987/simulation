@@ -3,7 +3,7 @@ package com.muted987.simulation.entity;
 import java.util.Objects;
 
 public abstract class Entity {
-    private EntitySymbol entitySymbol;
+    private final EntitySymbol entitySymbol;
 
     @Override
     public boolean equals(Object o) {

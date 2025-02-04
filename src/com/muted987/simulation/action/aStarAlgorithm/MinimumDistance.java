@@ -1,4 +1,4 @@
-package com.muted987.simulation;
+package com.muted987.simulation.action.aStarAlgorithm;
 
 import com.muted987.simulation.entity.Coordinates;
 
@@ -8,7 +8,13 @@ public class MinimumDistance {
         int firstY = firstCoordinates.getY();
         int secondX = secondCoordinates.getX();
         int secondY = secondCoordinates.getY();
-        return (int) Math.sqrt(Math.pow(Math.abs(firstX - secondX), 2) + Math.pow(Math.abs(firstY - secondY), 2));
-    }
+        int result;
+        if (firstX == secondX) {
+            result = Math.abs(firstY - secondY);
+        } else if (firstY == secondY) {
+            result = Math.abs(firstX - secondX);
+        } else result = Math.abs(firstX - secondX) + Math.abs(firstY - secondY);
 
+        return result;
+    }
 }

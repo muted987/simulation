@@ -4,4 +4,5 @@ public class Grass extends Entity{
     public Grass(EntitySymbol entitySymbol) {
         super(entitySymbol);
     }
+
 }

@@ -31,8 +31,11 @@ public class SimulationMap {
         return simulationMap.get(from);
     }
     public Coordinates getEntityCoordinates (Entity entity) {
+        int entityHash = entity.hashCode();
         for (Map.Entry<Coordinates, Entity> entry : simulationMap.entrySet()){
-            if (Objects.equals(entity, entry.getValue())) {
+            Entity entryEntity = entry.getValue();
+            int entryValueHash = entryEntity.hashCode();
+            if (entryValueHash == entityHash) {
                 return entry.getKey();
             }
         }

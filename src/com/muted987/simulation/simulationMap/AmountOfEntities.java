@@ -1,4 +1,4 @@
-package com.muted987.simulation.simulationMap.arrangement;
+package com.muted987.simulation.simulationMap;
 
 import com.muted987.simulation.entity.EntitySymbol;
 

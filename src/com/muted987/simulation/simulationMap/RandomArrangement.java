@@ -1,9 +1,8 @@
-package com.muted987.simulation.simulationMap.arrangement;
+package com.muted987.simulation.simulationMap;
 
-import com.muted987.simulation.EntityFactory;
+import com.muted987.simulation.entity.EntityFactory;
 import com.muted987.simulation.entity.Coordinates;
 import com.muted987.simulation.entity.EntitySymbol;
-import com.muted987.simulation.simulationMap.SimulationMap;
 
 import java.util.Map;
 import java.util.Random;

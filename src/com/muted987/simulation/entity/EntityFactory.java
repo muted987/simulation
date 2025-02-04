@@ -1,6 +1,5 @@
-package com.muted987.simulation;
+package com.muted987.simulation.entity;
 
-import com.muted987.simulation.entity.*;
 import com.muted987.simulation.entity.creature.Herbivore;
 import com.muted987.simulation.entity.creature.Predator;
 
