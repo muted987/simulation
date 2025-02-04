@@ -5,6 +5,7 @@ import com.muted987.simulation.entity.Entity;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class SimulationMap {
 
@@ -29,7 +30,14 @@ public class SimulationMap {
     public Entity getEntity(Coordinates from) {
         return simulationMap.get(from);
     }
-
+    public Coordinates getEntityCoordinates (Entity entity) {
+        for (Map.Entry<Coordinates, Entity> entry : simulationMap.entrySet()){
+            if (Objects.equals(entity, entry.getValue())) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
     public Map<Coordinates, Entity> getSimulationMap() {
         return simulationMap;
     }
