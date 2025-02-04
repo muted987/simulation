@@ -8,10 +8,9 @@ import com.muted987.simulation.simulationMap.SimulationMap;
 import java.util.Map;
 import java.util.Random;
 
-public class RandomArrangement extends Arrangement{
+public class RandomArrangement {
     private final Map<EntitySymbol, Integer> amountOfEntities = (new AmountOfEntities()).getAmountOfEntities();
 
-    @Override
     public SimulationMap arrange() {
         SimulationMap simulationMap = new SimulationMap();
         for (Map.Entry<EntitySymbol, Integer> entry : amountOfEntities.entrySet()) {
@@ -19,7 +18,7 @@ public class RandomArrangement extends Arrangement{
                 while (true) {
                     Coordinates coordinates = getRandomCoordinates(simulationMap);
                     if (simulationMap.isCellEmpty(coordinates)) {
-                        simulationMap.setEntity(EntityFactory.createEntity(entry.getKey(), coordinates), coordinates);
+                        simulationMap.setEntity(EntityFactory.createEntity(entry.getKey()), coordinates);
                         break;
                     }
                 }
