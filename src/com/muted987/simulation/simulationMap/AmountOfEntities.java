@@ -10,8 +10,8 @@ public class AmountOfEntities {
 
     {
         amountOfEntities.put(EntitySymbol.Grass, 2);
-        amountOfEntities.put(EntitySymbol.Rock, 2);
-        amountOfEntities.put(EntitySymbol.Tree, 2);
+        amountOfEntities.put(EntitySymbol.Rock, 6);
+        amountOfEntities.put(EntitySymbol.Tree, 8);
         amountOfEntities.put(EntitySymbol.Herbivore, 1);
         amountOfEntities.put(EntitySymbol.Predator, 1);
     }

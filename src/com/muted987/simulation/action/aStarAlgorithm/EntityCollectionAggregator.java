@@ -32,7 +32,7 @@ public class EntityCollectionAggregator {
                         } else if (e1 instanceof Grass && e2 instanceof Herbivore) {
                             return 1; // Grass после Herbivore
                         } else {
-                            return 0; // Оба объекта одного типа
+                            return 0;
                         }
                     }).collect(Collectors.toList());
         } else if (type == EntitySymbol.Predator) {

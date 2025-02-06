@@ -2,6 +2,8 @@ package com.muted987.simulation.simulationMap;
 
 import com.muted987.simulation.entity.Coordinates;
 import com.muted987.simulation.entity.Entity;
+import com.muted987.simulation.entity.Rock;
+import com.muted987.simulation.entity.Tree;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,5 +56,11 @@ public class SimulationMap {
 
     public boolean isCellEmpty(Coordinates coordinates) {
         return !simulationMap.containsKey(coordinates);
+    }
+
+    public boolean isNotImmovableEntity(int newX, int newY) {
+        Coordinates coordinates = new Coordinates(newX, newY);
+        Entity entity = getEntity(coordinates);
+        return entity instanceof Tree || entity instanceof Rock;
     }
 }

@@ -11,7 +11,7 @@ public class ClosestEntity {
     private final MinimumDistance minimumDistanceCalculator = new MinimumDistance();
 
     public List<Entity> getClosestEntity(List<Entity> arrayOfEntities, SimulationMap simulationMap) {
-        Entity firstEntity = arrayOfEntities.getFirst();
+        Entity firstEntity = arrayOfEntities.get(0);
         int maximumDistance = Integer.MAX_VALUE;
         Coordinates firstEntityCoordinates = simulationMap.getEntityCoordinates(firstEntity);
         int index = 1;
