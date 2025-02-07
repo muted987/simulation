@@ -8,9 +8,9 @@ import java.util.Map;
 import java.util.Random;
 
 public class RandomArrangement {
-    private final Map<EntitySymbol, Integer> amountOfEntities = (new AmountOfEntities()).getAmountOfEntities();
+    private static final Map<EntitySymbol, Integer> amountOfEntities = (new AmountOfEntities()).getAmountOfEntities();
 
-    public SimulationMap arrange() {
+    public static SimulationMap arrange() {
         SimulationMap simulationMap = new SimulationMap();
         for (Map.Entry<EntitySymbol, Integer> entry : amountOfEntities.entrySet()) {
             for (int i = 0; i < entry.getValue();i++) {
@@ -26,13 +26,13 @@ public class RandomArrangement {
         return simulationMap;
     }
 
-    private Coordinates getRandomCoordinates(SimulationMap simulationMap) {
+    private static Coordinates getRandomCoordinates(SimulationMap simulationMap) {
         int randomX = getRandomNumber(simulationMap.getMAX_X() - 1);
         int randomY = getRandomNumber(simulationMap.getMAX_Y() - 1);
         return new Coordinates(randomX, randomY);
     }
 
-    private int getRandomNumber(int rangeOfRandom) {
+    private static int getRandomNumber(int rangeOfRandom) {
         Random random = new Random();
         return random.nextInt(rangeOfRandom) + 1;
     }

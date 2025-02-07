@@ -1,13 +1,9 @@
 package com.muted987.simulation.simulationMap;
 
-import com.muted987.simulation.entity.Coordinates;
-import com.muted987.simulation.entity.Entity;
-import com.muted987.simulation.entity.Rock;
-import com.muted987.simulation.entity.Tree;
+import com.muted987.simulation.entity.*;
+import com.muted987.simulation.entity.creature.Creature;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class SimulationMap {
 
@@ -33,14 +29,11 @@ public class SimulationMap {
         return simulationMap.get(from);
     }
     public Coordinates getEntityCoordinates (Entity entity) {
-        int entityHash = entity.hashCode();
         for (Map.Entry<Coordinates, Entity> entry : simulationMap.entrySet()){
-            Entity entryEntity = entry.getValue();
-            int entryValueHash = entryEntity.hashCode();
-            if (entryValueHash == entityHash) {
-                return entry.getKey();
+                if (entry.getValue().equals(entity)) {
+                    return entry.getKey();
+                }
             }
-        }
         return null;
     }
     public Map<Coordinates, Entity> getSimulationMap() {
@@ -62,5 +55,25 @@ public class SimulationMap {
         Coordinates coordinates = new Coordinates(newX, newY);
         Entity entity = getEntity(coordinates);
         return entity instanceof Tree || entity instanceof Rock;
+    }
+
+    public ArrayList<Creature> creatureListByType(EntitySymbol type) {
+        ArrayList<Creature> result = new ArrayList<>();
+        for (Entity entity : simulationMap.values()) {
+            if (entity.getEntitySymbol().equals(type)) {
+                result.add((Creature)entity);
+            }
+        }
+        return result;
+    }
+
+    public List<Entity> entityListByType(EntitySymbol type) {
+        ArrayList<Entity> result = new ArrayList<>();
+        for (Entity entity : simulationMap.values()) {
+            if (entity.getEntitySymbol().equals(type)) {
+                result.add(entity);
+            }
+        }
+        return result;
     }
 }
