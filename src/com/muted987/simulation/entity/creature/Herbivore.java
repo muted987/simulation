@@ -10,6 +10,8 @@ public class Herbivore extends Creature{
     }
     @Override
     public void action(SimulationMap simulationMap) {
-        simulationMap.removeEntity(this.getTargetCoordinates());
+//        simulationMap.removeEntity(getTargetCoordinates());
+//        simulationMap.moveEntity(getPathToTarget().get(getSteps() - 1).getCoordinates(), getPathToTarget().get(getSteps()).getCoordinates());
+        setTargetEntity(null);
     }
 }

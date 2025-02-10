@@ -79,17 +79,12 @@ public abstract class Creature extends Entity {
     }
 
     public void makeMove(SimulationMap simulationMap) {
-        int steps = this.getSteps();
-        Coordinates herbivoreCoordinates = new Coordinates(this.getPathToTarget().get(steps - 1).getX(), this.getPathToTarget().get(steps - 1).getY());
-        Coordinates moveCoordinates = new Coordinates(this.getPathToTarget().get(steps).getX(), this.getPathToTarget().get(steps).getY());
-        if (this.getSteps() + 1 == this.getPathToTarget().size()) {
+        if (getSteps() == pathToTarget.size()) {
             action(simulationMap);
-            this.removeTargetEntity();
-            this.removeTargetCoordinates();
-            this.removePathToTarget();
+        } else {
+            simulationMap.moveEntity(pathToTarget.get(steps - 1).getCoordinates(), pathToTarget.get(steps).getCoordinates());
+            setSteps(getSteps() + 1);
         }
-        simulationMap.moveEntity(herbivoreCoordinates, moveCoordinates);
-        this.setSteps(steps + 1);
 
     }
     protected abstract void action(SimulationMap simulationMap);

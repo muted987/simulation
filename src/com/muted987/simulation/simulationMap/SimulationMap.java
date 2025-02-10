@@ -57,21 +57,22 @@ public class SimulationMap {
         return entity instanceof Tree || entity instanceof Rock;
     }
 
-    public ArrayList<Creature> creatureListByType(EntitySymbol type) {
-        ArrayList<Creature> result = new ArrayList<>();
-        for (Entity entity : simulationMap.values()) {
-            if (entity.getEntitySymbol().equals(type)) {
-                result.add((Creature)entity);
+
+    public Map<Coordinates, Creature> creatureMapByType(EntitySymbol type) {
+        Map<Coordinates, Creature> result = new HashMap<>();
+        for (Map.Entry<Coordinates, Entity> entry : simulationMap.entrySet()) {
+            if (entry.getValue().getEntitySymbol() == type) {
+                result.put(entry.getKey(), (Creature) entry.getValue());
             }
         }
         return result;
     }
 
-    public List<Entity> entityListByType(EntitySymbol type) {
-        ArrayList<Entity> result = new ArrayList<>();
-        for (Entity entity : simulationMap.values()) {
-            if (entity.getEntitySymbol().equals(type)) {
-                result.add(entity);
+    public Map<Coordinates, Entity> entityMapByType(EntitySymbol type) {
+        Map<Coordinates, Entity> result = new HashMap<>();
+        for (Map.Entry<Coordinates, Entity> entry : simulationMap.entrySet()) {
+            if (entry.getValue().getEntitySymbol() == type) {
+                result.put(entry.getKey(), entry.getValue());
             }
         }
         return result;

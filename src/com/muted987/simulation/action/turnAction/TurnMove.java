@@ -1,9 +1,11 @@
-package com.muted987.simulation.action;
+package com.muted987.simulation.action.turnAction;
 
+import com.muted987.simulation.action.Action;
 import com.muted987.simulation.action.aStarAlgorithm.AStar;
 import com.muted987.simulation.action.aStarAlgorithm.Node;
 import com.muted987.simulation.entity.Coordinates;
 import com.muted987.simulation.entity.Entity;
+import com.muted987.simulation.entity.EntitySymbol;
 import com.muted987.simulation.entity.Grass;
 import com.muted987.simulation.entity.creature.Creature;
 import com.muted987.simulation.entity.creature.Herbivore;
@@ -12,22 +14,15 @@ import com.muted987.simulation.simulationMap.SimulationMap;
 
 import java.util.*;
 
-public class TurnAction extends Action {
+public class TurnMove extends Action {
 
     private static Map<Coordinates, Creature> herbivoreMap = new HashMap<>();
     private static Map<Coordinates, Creature> predatorMap = new HashMap<>();
     private static Map<Coordinates, Entity> grassMap = new HashMap<>();
 
-    public TurnAction(SimulationMap simulationMap) {
-        for (Map.Entry<Coordinates, Entity> entry : simulationMap.getSimulationMap().entrySet()) {
-            if (entry.getValue() instanceof Grass) {
-                grassMap.put(entry.getKey(), entry.getValue());
-            } else if (entry.getValue() instanceof Herbivore) {
-                herbivoreMap.put(entry.getKey(), (Creature) entry.getValue());
-            } else if (entry.getValue() instanceof Predator) {
-                predatorMap.put(entry.getKey(), (Creature) entry.getValue());
-            }
-        }
+
+    public TurnMove(SimulationMap simulationMap) {
+        updateHashMap(simulationMap);
     }
 
     @Override
@@ -36,6 +31,7 @@ public class TurnAction extends Action {
             Creature entryCreature = entry.getValue();
             Random random = new Random();
             if (entryCreature.getTargetEntity() == null) {
+                updateHashMap(simulationMap);
                 int steps = 1;
                 int randomGrassIndex = random.nextInt(grassMap.size());
                 List<Coordinates> grassCoordinates = new ArrayList<>(grassMap.keySet());
@@ -44,11 +40,17 @@ public class TurnAction extends Action {
                 entryCreature.setTargetEntity(randomGrass);
                 List<Node> node = AStar.findPath(simulationMap, entryCreature, entryCreature.getTargetEntity());
                 entryCreature.setPathToTarget(node);
+                entryCreature.setSteps(steps);
             }
             entryCreature.makeMove(simulationMap);
         }
-        for (Map.Entry<Coordinates>)
-        return  simulationMap;
+        return simulationMap;
+    }
+
+    private void updateHashMap(SimulationMap simulationMap) {
+        herbivoreMap = simulationMap.creatureMapByType(EntitySymbol.Herbivore);
+        predatorMap = simulationMap.creatureMapByType(EntitySymbol.Predator);
+        grassMap = simulationMap.entityMapByType(EntitySymbol.Grass);
     }
 
 

@@ -1,5 +1,6 @@
 package com.muted987.simulation.action.aStarAlgorithm;
 
+import com.muted987.simulation.entity.Coordinates;
 import com.muted987.simulation.entity.Entity;
 import com.muted987.simulation.simulationMap.SimulationMap;
 
@@ -34,7 +35,8 @@ public class AStar {
                 if (isCellAvailableToMove(newX, newY, simulationMap)) {
                     continue; //Скип препятствий и выход за клеток. Метод isCellAvailableToMove определяет это.
                 }
-                Node neighbour = new Node(newX, newY);
+                Coordinates coordinates = new Coordinates(newX, newY);
+                Node neighbour = new Node(coordinates);
                 if (closedList.contains(neighbour)) {
                     continue; //Пропуск клеток которые были изучены
                 }

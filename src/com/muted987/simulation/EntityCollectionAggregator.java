@@ -1,4 +1,4 @@
-package com.muted987.simulation.action.aStarAlgorithm;
+package com.muted987.simulation;
 
 import com.muted987.simulation.entity.Coordinates;
 import com.muted987.simulation.entity.Entity;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class EntityCollectionAggregator {
 
-    public List<Entity> aggregate(SimulationMap simulationMap, EntitySymbol type) {
+    public static List<Entity> aggregate(SimulationMap simulationMap, EntitySymbol type) {
         List<Entity> entityCollection = new ArrayList<>();
         List<Entity> sortedEntities = new ArrayList<>();
         Map<Coordinates, Entity> entitiesCoordinatesMap = new HashMap<>();
