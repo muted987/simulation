@@ -34,17 +34,17 @@ public class Simulation {
             System.out.println("\n");
             render.render(simulationMap);
         }
-        boolean flag = true;
         setTurnActions();
-        while (flag) {
+        while (true) {
             if (simulationMap.entityMapByType(EntitySymbol.Grass).size() == 0) {
                 System.out.println("Травы 0");
-                flag = false;
+                break;
             }
             for (Action action : turnActions) {
                 simulationMap = action.execute(simulationMap);
                 System.out.println("\n");
                 render.render(simulationMap);
+                System.out.println("\n");
             }
 //            String input = scanner.nextLine();
 //            if (!input.equals("1")) {

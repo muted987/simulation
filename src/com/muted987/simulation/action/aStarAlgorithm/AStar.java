@@ -2,6 +2,9 @@ package com.muted987.simulation.action.aStarAlgorithm;
 
 import com.muted987.simulation.entity.Coordinates;
 import com.muted987.simulation.entity.Entity;
+import com.muted987.simulation.entity.EntitySymbol;
+import com.muted987.simulation.entity.Rock;
+import com.muted987.simulation.entity.creature.Creature;
 import com.muted987.simulation.simulationMap.SimulationMap;
 
 import java.util.*;
@@ -10,11 +13,14 @@ public class AStar {
 
     private static final int[][] DIRS = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
 
-    public static List<Node> findPath(SimulationMap simulationMap, Entity startEntity, Entity endEntity) {
+    public static List<Node> findPath(SimulationMap simulationMap, Map.Entry<Coordinates, Creature> entrySet) {
         PriorityQueue<Node> openList = new PriorityQueue<>(Comparator.comparingInt(node -> node.f));
         Set<Node> closedList = new HashSet<>();
-        Node startNode = NodeFactory.createNode(startEntity, simulationMap);
-        Node endNode = NodeFactory.createNode(endEntity, simulationMap);
+        Creature startCreature = entrySet.getValue();
+        Coordinates startCoordinates = entrySet.getKey();
+        EntitySymbol entityType = startCreature.getEntitySymbol();
+        Node startNode = NodeFactory.createNode(startCoordinates);
+        Node endNode = NodeFactory.createNode(startCreature.getTargetCoordinates());
         startNode.g = 0;
         startNode.h = heuristic(startNode, endNode);
         startNode.f = startNode.g = startNode.h;
@@ -31,11 +37,16 @@ public class AStar {
             for (int[] dir : DIRS) {
                 int newX = current.getX() + dir[0];
                 int newY = current.getY() + dir[1];
-
-                if (isCellAvailableToMove(newX, newY, simulationMap)) {
-                    continue; //Скип препятствий и выход за клеток. Метод isCellAvailableToMove определяет это.
-                }
                 Coordinates coordinates = new Coordinates(newX, newY);
+                if (entityType == EntitySymbol.Herbivore) {
+                    if (isCellAvailableToMoveForHerbivore(coordinates, simulationMap)) {
+                        continue;
+                    }
+                } else {
+                    if (isCellAvailableToMoveForPredator(coordinates, simulationMap)) {
+                        continue;
+                    }
+                }
                 Node neighbour = new Node(coordinates);
                 if (closedList.contains(neighbour)) {
                     continue; //Пропуск клеток которые были изучены
@@ -56,8 +67,12 @@ public class AStar {
         return Collections.emptyList();
     }
 
-    private static boolean isCellAvailableToMove(int newX, int newY, SimulationMap simulationMap) {
-        return newX < 0 || newX >= simulationMap.getMAX_X() || newY < 0 || newY >= simulationMap.getMAX_Y() || simulationMap.isNotImmovableEntity(newX, newY);
+    private static boolean isCellAvailableToMoveForHerbivore(Coordinates coordinates, SimulationMap simulationMap) {
+        return coordinates.getX() < 0 || coordinates.getX() >= simulationMap.getMAX_X() || coordinates.getY() < 0 || coordinates.getY() >= simulationMap.getMAX_Y() || simulationMap.isType(coordinates, EntitySymbol.Rock) || simulationMap.isType(coordinates, EntitySymbol.Tree) || simulationMap.isType(coordinates, EntitySymbol.Herbivore);
+    }
+
+    private static boolean isCellAvailableToMoveForPredator(Coordinates coordinates, SimulationMap simulationMap) {
+        return coordinates.getX() < 0 || coordinates.getX() >= simulationMap.getMAX_X() || coordinates.getY() < 0 || coordinates.getY() >= simulationMap.getMAX_Y() || simulationMap.isType(coordinates, EntitySymbol.Rock) || simulationMap.isType(coordinates, EntitySymbol.Grass) || simulationMap.isType(coordinates, EntitySymbol.Tree) || simulationMap.isType(coordinates, EntitySymbol.Predator);
     }
 
     private static int heuristic(Node a, Node b) {

@@ -2,6 +2,8 @@ package com.muted987.simulation.simulationMap;
 
 import com.muted987.simulation.entity.*;
 import com.muted987.simulation.entity.creature.Creature;
+import com.muted987.simulation.entity.creature.Herbivore;
+import com.muted987.simulation.entity.creature.Predator;
 
 import java.util.*;
 
@@ -46,18 +48,19 @@ public class SimulationMap {
         setEntity(entityTo, to);
     }
 
+    public Map<Coordinates, Creature> creatureMap() {
+        Map<Coordinates, Creature> result = new HashMap<>();
+        for (Map.Entry<Coordinates, Entity> entry : simulationMap.entrySet()) {
+            if (entry.getValue() instanceof Creature) {
+                result.put(entry.getKey(), (Creature) entry.getValue());
+            }
+        }
+        return result;
+    }
 
     public boolean isCellEmpty(Coordinates coordinates) {
         return !simulationMap.containsKey(coordinates);
     }
-
-    public boolean isNotImmovableEntity(int newX, int newY) {
-        Coordinates coordinates = new Coordinates(newX, newY);
-        Entity entity = getEntity(coordinates);
-        return entity instanceof Tree || entity instanceof Rock;
-    }
-
-
     public Map<Coordinates, Creature> creatureMapByType(EntitySymbol type) {
         Map<Coordinates, Creature> result = new HashMap<>();
         for (Map.Entry<Coordinates, Entity> entry : simulationMap.entrySet()) {
@@ -71,10 +74,33 @@ public class SimulationMap {
     public Map<Coordinates, Entity> entityMapByType(EntitySymbol type) {
         Map<Coordinates, Entity> result = new HashMap<>();
         for (Map.Entry<Coordinates, Entity> entry : simulationMap.entrySet()) {
-            if (entry.getValue().getEntitySymbol() == type) {
+            EntitySymbol entryType = null;
+            try {
+                entryType = entry.getValue().getEntitySymbol();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (entryType == type) {
                 result.put(entry.getKey(), entry.getValue());
             }
         }
         return result;
+    }
+
+    public boolean isType(Coordinates coordinates, EntitySymbol entityType) {
+        Entity entity = getEntity(coordinates);
+        switch (entityType) {
+            case Herbivore:
+                return entity instanceof Herbivore;
+            case Predator:
+                return entity instanceof Predator;
+            case Grass:
+                return entity instanceof Grass;
+            case Tree:
+                return entity instanceof Tree;
+            case Rock:
+                return entity instanceof Rock;
+        }
+        return false;
     }
 }

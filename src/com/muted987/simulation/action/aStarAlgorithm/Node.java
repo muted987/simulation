@@ -14,10 +14,6 @@ public class Node {
     Node parent;
     private EntitySymbol entityType;
 
-    public Node(Coordinates coordinates) {
-        this.coordinates = coordinates;
-    }
-
     public int getX() {
         return coordinates.getX();
     }
@@ -38,9 +34,8 @@ public class Node {
         return entityType;
     }
 
-    public Node(Coordinates coordinates, EntitySymbol entityType) {
+    public Node(Coordinates coordinates) {
         this.coordinates = coordinates;
-        this.entityType = entityType;
     }
 
     @Override
