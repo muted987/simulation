@@ -33,6 +33,9 @@ public class TurnMove extends Action {
             Creature entryCreature = entry.getValue();
             if (entryCreature instanceof Herbivore) {
                 updateGrassMap(executableMap);
+                if (grassMap.size() == 0) {
+                    break;
+                }
                 Map<Coordinates, Entity> randomGrass = getRandomValueFromMap(grassMap);
                 for (Map.Entry<Coordinates, Entity> entryGrass : randomGrass.entrySet()) {
                    entryCreature.setTargetEntity(entryGrass.getValue());
@@ -40,6 +43,9 @@ public class TurnMove extends Action {
                 }
             } else {
                 updateHerbivoreMap(executableMap);
+                if (herbivoreMap.size() == 0) {
+                    break;
+                }
                 Map<Coordinates, Creature> randomHerbivore = getRandomValueFromMap(herbivoreMap);
                 for (Map.Entry<Coordinates, Creature> entryHerbivore : randomHerbivore.entrySet()) {
                     entryCreature.setTargetEntity(entryHerbivore.getValue());
@@ -57,7 +63,12 @@ public class TurnMove extends Action {
     private  <T extends Entity> Map<Coordinates,  T> getRandomValueFromMap(Map<Coordinates, T> map) {
         Random random = new Random();
         Map<Coordinates, T> result = new HashMap<>();
-        int randomIndex = random.nextInt(map.size());
+        int randomIndex = 0;
+        try {
+            randomIndex = random.nextInt(map.size());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         List<Coordinates> listOfCoordinates = new ArrayList<>(map.keySet());
         Coordinates randomKey = listOfCoordinates.get(randomIndex);
         result.put(randomKey, map.get(randomKey));

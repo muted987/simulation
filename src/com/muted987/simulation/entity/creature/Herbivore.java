@@ -1,6 +1,5 @@
 package com.muted987.simulation.entity.creature;
 
-import com.muted987.simulation.entity.Coordinates;
 import com.muted987.simulation.entity.EntitySymbol;
 import com.muted987.simulation.simulationMap.SimulationMap;
 

@@ -9,6 +9,6 @@ public class InitArrangement extends Action {
 
     @Override
     public SimulationMap execute(SimulationMap simulationMap) {
-        return RandomArrangement.arrange();
+        return RandomArrangement.initArrange();
     }
 }

@@ -9,10 +9,10 @@ public class AmountOfEntities {
     private final Map<EntitySymbol, Integer> amountOfEntities = new HashMap<>();
 
     {
-        amountOfEntities.put(EntitySymbol.Grass, 1);
+        amountOfEntities.put(EntitySymbol.Grass, 2);
         amountOfEntities.put(EntitySymbol.Rock, 6);
         amountOfEntities.put(EntitySymbol.Tree, 8);
-        amountOfEntities.put(EntitySymbol.Herbivore, 2);
+        amountOfEntities.put(EntitySymbol.Herbivore, 1);
         amountOfEntities.put(EntitySymbol.Predator, 1);
     }
 

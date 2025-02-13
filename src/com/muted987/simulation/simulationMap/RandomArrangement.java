@@ -10,7 +10,7 @@ import java.util.Random;
 public class RandomArrangement {
     private static final Map<EntitySymbol, Integer> amountOfEntities = (new AmountOfEntities()).getAmountOfEntities();
 
-    public static SimulationMap arrange() {
+    public static SimulationMap initArrange() {
         SimulationMap simulationMap = new SimulationMap();
         for (Map.Entry<EntitySymbol, Integer> entry : amountOfEntities.entrySet()) {
             for (int i = 0; i < entry.getValue();i++) {
@@ -25,6 +25,25 @@ public class RandomArrangement {
         }
         return simulationMap;
     }
+
+    public static SimulationMap turnArrange(SimulationMap simulationMap, int amountOfEntity) {
+
+        for (Map.Entry<EntitySymbol, Integer> entry : amountOfEntities.entrySet()) {
+            int amountOfArrangedEntity = entry.getValue() - amountOfEntity;
+            if (amountOfArrangedEntity == 0) break;
+            for (int i = 1; i < amountOfArrangedEntity; i++) {
+                while (true) {
+                    Coordinates coordinates = getRandomCoordinates(simulationMap);
+                    if (simulationMap.isCellEmpty(coordinates)) {
+                        simulationMap.setEntity(EntityFactory.createEntity(entry.getKey()), coordinates);
+                        break;
+                    }
+                }
+            }
+        }
+        return simulationMap;
+    }
+
 
     private static Coordinates getRandomCoordinates(SimulationMap simulationMap) {
         int randomX = getRandomNumber(simulationMap.getMAX_X() - 1);

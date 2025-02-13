@@ -64,10 +64,15 @@ public abstract class Creature extends Entity {
     }
 
     public void makeMove(SimulationMap simulationMap) {
-
-
+        Coordinates from = getPathToTarget().get(0).getCoordinates();
+        Coordinates to = getPathToTarget().get(1).getCoordinates();
+        if (to.equals(getTargetCoordinates())) {
+            action(simulationMap);
+        } else {
+            simulationMap.moveEntity(from, to);
+        }
     }
     protected abstract void action(SimulationMap simulationMap);
 
-    
+
 }
