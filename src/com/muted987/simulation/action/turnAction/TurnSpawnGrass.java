@@ -15,9 +15,7 @@ public class TurnSpawnGrass extends Action {
 
         HashMap<Coordinates, Entity> grassMap = new HashMap<>(simulationMap.entityMapByType(EntitySymbol.Grass));
         int grassMapSize = grassMap.size();
-        if (grassMap.size() == 0) {
-            RandomArrangement.turnArrange(simulationMap, grassMapSize);
-        }
+        RandomArrangement.turnArrange(simulationMap, grassMapSize);
 
         return simulationMap;
     }

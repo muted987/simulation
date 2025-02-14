@@ -8,7 +8,6 @@ import com.muted987.simulation.entity.Entity;
 import com.muted987.simulation.entity.EntitySymbol;
 import com.muted987.simulation.entity.creature.Creature;
 import com.muted987.simulation.entity.creature.Herbivore;
-import com.muted987.simulation.simulationMap.ConsoleRender;
 import com.muted987.simulation.simulationMap.SimulationMap;
 
 import java.util.*;
@@ -29,9 +28,9 @@ public class TurnMove extends Action {
         updateCreatureMap(simulationMap);
         for (Map.Entry<Coordinates, Creature> entry : creatureMap.entrySet()) {
             Creature entryCreature = entry.getValue();
+            updateHerbivoreMap(simulationMap);
+            updateGrassMap(simulationMap);
             if (entryCreature instanceof Herbivore) {
-                updateHerbivoreMap(simulationMap);
-                updateGrassMap(simulationMap);
                 if (grassMap.size() == 0 || herbivoreMap.size() == 0) {
                     break;
                 }
@@ -41,8 +40,6 @@ public class TurnMove extends Action {
                    entryCreature.setTargetCoordinates(entryGrass.getKey());
                 }
             } else {
-                updateHerbivoreMap(simulationMap);
-                updateGrassMap(simulationMap);
                 if (herbivoreMap.size() == 0 || grassMap.size() == 0) {
                     break;
                 }

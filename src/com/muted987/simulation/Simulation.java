@@ -16,13 +16,15 @@ public class Simulation {
     private static final int MENU_FIRST_OPTION = 1;
     private static final int MENU_SECOND_OPTION = 2;
     private static final int MENU_THIRD_OPTION = 3;
-    private static final String HERBIVORE_WIN_MESSAGE = "Травоядным понадобилось %d итераций, чтобы съесть всю траву\n";
-    private static final String PREDATOR_WIN_MESSAGE = "Хищникам понадобилось %d итераций, чтобы съесть всех травоядных\n";
+    private static final String HERBIVORE_WIN_MESSAGE = "Травоядным понадобилось %d итерации, чтобы съесть всю траву\n";
+    private static final String PREDATOR_WIN_MESSAGE = "Хищникам понадобилось %d итерации, чтобы съесть всех травоядных\n";
     private static final String ITERATION_COUNT_MESSAGE = "Номер итерации %d\n";
     private static SimulationMap simulationMap = new SimulationMap();
     private static final List<Action> initActions = new ArrayList<>();
     private static final List<Action> turnActions = new ArrayList<>();
-
+    private static boolean isPaused = false;
+    private static boolean isOver = false;
+    private static int turnCount = 0;
     private static void setInitActions() {
         initActions.add(new InitArrangement());
     }
@@ -45,55 +47,71 @@ public class Simulation {
             simulationMap = action.execute(simulationMap);
             ConsoleRender.render(simulationMap);
         }
-        input = Input.integer(true);
-        if (input == MENU_SECOND_OPTION) System.exit(100);
-        else if (input == MENU_FIRST_OPTION) {
-            setTurnActions();
-            int turnCount = 0;
-            while (true) {
-                turnCount++;
-                for (Action action : turnActions) {
-                    simulationMap = action.execute(simulationMap);
-                }
-                if (turnCount == 5) {
-                    turnActions.get(1).execute(simulationMap);
-                }
-                if (simulationMap.entityMapByType(EntitySymbol.Grass).size() == 0) {
-                    System.out.printf(HERBIVORE_WIN_MESSAGE, turnCount);
-                    break;
-                } else if (simulationMap.entityMapByType(EntitySymbol.Herbivore).size() == 0) {
-                    System.out.printf(PREDATOR_WIN_MESSAGE, turnCount);
-                    break;
-                }
-                System.out.printf(ITERATION_COUNT_MESSAGE, turnCount);
-                ConsoleRender.render(simulationMap);
-                MenuRender.inGameMenuRender();
-                input = Input.integer(true);
-                MenuRender.renderInGameMenuByOption(input);
-                switch (input) {
-                    case MENU_FIRST_OPTION:
-                        continue;
-                    case MENU_SECOND_OPTION:
-                        pauseSimulation();
-                        continue;
-                    case MENU_THIRD_OPTION:
-                        System.exit(100);
-                }
-            }
-        }
+        setTurnActions();
+        do {
+            MenuRender.inGameMenuRender();
+            input = Input.integer(true);
+            MenuRender.renderInGameMenuByOption(input);
+            inGameOptionChoose(input);
+            iteration(turnCount);
+            turnCount++;
+        } while (!isOver);
+    }
 
+    private static void iteration(int turnCount) {
+        if (!isPaused) {
+            simulationMap = turnActions.get(0).execute(simulationMap);
+            if (endOfSimulationCheck(simulationMap, turnCount)) {
+                isOver = true;
+                return;
+            }
+            if (turnCount % 4 == 0) {
+                turnActions.get(1).execute(simulationMap);
+            }
+            System.out.printf(ITERATION_COUNT_MESSAGE, turnCount);
+            ConsoleRender.render(simulationMap);
+        }
+    }
+
+    private static void endSimulation() {
+        System.exit(100);
     }
 
     private static void pauseSimulation() {
+        isPaused = true;
         MenuRender.pauseMenuRender();
         while (true) {
             int input = Input.integer(true);
             if (input == MENU_FIRST_OPTION) {
+                isPaused = false;
                 break;
             } else if (input == MENU_SECOND_OPTION) {
-                System.exit(100);
+                endSimulation();
             }
         }
+    }
+
+    private static void inGameOptionChoose(int option) {
+        switch (option) {
+            case MENU_SECOND_OPTION:
+                pauseSimulation();
+                break;
+            case MENU_THIRD_OPTION:
+                endSimulation();
+        }
+    }
+
+    private static boolean endOfSimulationCheck(SimulationMap simulationMap, int turnCount) {
+        if (simulationMap.entityMapByType(EntitySymbol.Grass).size() == 0) {
+            System.out.printf(HERBIVORE_WIN_MESSAGE, turnCount);
+            ConsoleRender.render(simulationMap);
+            return true;
+        } else if (simulationMap.entityMapByType(EntitySymbol.Herbivore).size() == 0) {
+            System.out.printf(PREDATOR_WIN_MESSAGE, turnCount);
+            ConsoleRender.render(simulationMap);
+            return true;
+        }
+        return false;
     }
 
 }

@@ -27,7 +27,7 @@ public class RandomArrangement {
         return simulationMap;
     }
 
-    public static SimulationMap turnArrange(SimulationMap simulationMap, int amountOfEntity) {
+    public static void turnArrange(SimulationMap simulationMap, int amountOfEntity) {
         Map<EntitySymbol, Integer> grassAmount = new HashMap<>();
         grassAmount.put(EntitySymbol.Grass, amountOfEntities.get(EntitySymbol.Grass));
         int amountOfArrangedEntity = grassAmount.get(EntitySymbol.Grass) - amountOfEntity;
@@ -40,7 +40,6 @@ public class RandomArrangement {
                 }
             }
         }
-        return simulationMap;
     }
 
 

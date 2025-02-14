@@ -14,11 +14,14 @@ public class Input {
             if (validate(input)) {
                 result = Character.getNumericValue(input.charAt(0));
             } else {
+                System.out.println("Invalid input. Try again");
                 continue;
             }
             if (isForMenu) {
                if (validateForMenu(result)) {
                    return result;
+               } else {
+                   System.out.println("Invalid input. Try again");
                }
             } else {
                 return result;
