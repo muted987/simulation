@@ -1,9 +1,7 @@
 package com.muted987.simulation.action.aStarAlgorithm;
 
 import com.muted987.simulation.entity.Coordinates;
-import com.muted987.simulation.entity.Entity;
 import com.muted987.simulation.entity.EntitySymbol;
-import com.muted987.simulation.entity.Rock;
 import com.muted987.simulation.entity.creature.Creature;
 import com.muted987.simulation.simulationMap.SimulationMap;
 
@@ -68,7 +66,7 @@ public class AStar {
     }
 
     private static boolean isCellAvailableToMoveForHerbivore(Coordinates coordinates, SimulationMap simulationMap) {
-        return coordinates.getX() < 0 || coordinates.getX() >= simulationMap.getMAX_X() || coordinates.getY() < 0 || coordinates.getY() >= simulationMap.getMAX_Y() || simulationMap.isType(coordinates, EntitySymbol.Rock) || simulationMap.isType(coordinates, EntitySymbol.Tree) || simulationMap.isType(coordinates, EntitySymbol.Herbivore);
+        return coordinates.getX() < 0 || coordinates.getX() >= simulationMap.getMAX_X() || coordinates.getY() < 0 || coordinates.getY() >= simulationMap.getMAX_Y() || simulationMap.isType(coordinates, EntitySymbol.Rock) || simulationMap.isType(coordinates, EntitySymbol.Tree) || simulationMap.isType(coordinates, EntitySymbol.Herbivore) || simulationMap.isType(coordinates, EntitySymbol.Predator);
     }
 
     private static boolean isCellAvailableToMoveForPredator(Coordinates coordinates, SimulationMap simulationMap) {
@@ -81,7 +79,7 @@ public class AStar {
 
 
     private static List<Node> reconstructPath(Node node) {
-        List<Node> path = new ArrayList();
+        List<Node> path = new ArrayList<>();
         while (node != null) {
             path.add(node);
             node = node.parent;

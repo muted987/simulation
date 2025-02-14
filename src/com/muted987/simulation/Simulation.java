@@ -20,7 +20,6 @@ public class Simulation {
     private static final String PREDATOR_WIN_MESSAGE = "Хищникам понадобилось %d итераций, чтобы съесть всех травоядных\n";
     private static final String ITERATION_COUNT_MESSAGE = "Номер итерации %d\n";
     private static SimulationMap simulationMap = new SimulationMap();
-    private static ConsoleRender render = new ConsoleRender();
     private static final List<Action> initActions = new ArrayList<>();
     private static final List<Action> turnActions = new ArrayList<>();
 
@@ -44,8 +43,7 @@ public class Simulation {
         if (input == MENU_SECOND_OPTION) System.exit(100);
         for (Action action : initActions) {
             simulationMap = action.execute(simulationMap);
-            render.render(simulationMap);
-            System.out.println("\n");
+            ConsoleRender.render(simulationMap);
         }
         input = Input.integer(true);
         if (input == MENU_SECOND_OPTION) System.exit(100);
@@ -68,8 +66,7 @@ public class Simulation {
                     break;
                 }
                 System.out.printf(ITERATION_COUNT_MESSAGE, turnCount);
-                render.render(simulationMap);
-                System.out.println("\n");
+                ConsoleRender.render(simulationMap);
                 MenuRender.inGameMenuRender();
                 input = Input.integer(true);
                 MenuRender.renderInGameMenuByOption(input);

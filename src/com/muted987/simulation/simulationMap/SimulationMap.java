@@ -10,8 +10,8 @@ import java.util.*;
 public class SimulationMap {
 
     private final Map<Coordinates, Entity> simulationMap = new HashMap<>();
-    private final int MAX_X = 10;
-    private final int MAX_Y = 10;
+    private final static int MAX_X = 10;
+    private final static int MAX_Y = 10;
 
     public int getMAX_X() {
         return MAX_X;
@@ -29,14 +29,6 @@ public class SimulationMap {
     }
     public Entity getEntity(Coordinates from) {
         return simulationMap.get(from);
-    }
-    public Coordinates getEntityCoordinates (Entity entity) {
-        for (Map.Entry<Coordinates, Entity> entry : simulationMap.entrySet()){
-                if (entry.getValue().equals(entity)) {
-                    return entry.getKey();
-                }
-            }
-        return null;
     }
     public Map<Coordinates, Entity> getSimulationMap() {
         return simulationMap;

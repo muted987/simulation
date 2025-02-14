@@ -6,9 +6,6 @@ public class Input {
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static String string() {
-        return scanner.nextLine();
-    }
 
     public static int integer(boolean isForMenu) {
         while (true) {

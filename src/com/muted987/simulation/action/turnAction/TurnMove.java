@@ -6,10 +6,9 @@ import com.muted987.simulation.action.aStarAlgorithm.Node;
 import com.muted987.simulation.entity.Coordinates;
 import com.muted987.simulation.entity.Entity;
 import com.muted987.simulation.entity.EntitySymbol;
-import com.muted987.simulation.entity.Grass;
 import com.muted987.simulation.entity.creature.Creature;
 import com.muted987.simulation.entity.creature.Herbivore;
-import com.muted987.simulation.entity.creature.Predator;
+import com.muted987.simulation.simulationMap.ConsoleRender;
 import com.muted987.simulation.simulationMap.SimulationMap;
 
 import java.util.*;
@@ -27,13 +26,13 @@ public class TurnMove extends Action {
 
     @Override
     public SimulationMap execute(SimulationMap simulationMap) {
-        SimulationMap executableMap = simulationMap;
-        updateCreatureMap(executableMap);
+        updateCreatureMap(simulationMap);
         for (Map.Entry<Coordinates, Creature> entry : creatureMap.entrySet()) {
             Creature entryCreature = entry.getValue();
             if (entryCreature instanceof Herbivore) {
-                updateGrassMap(executableMap);
-                if (grassMap.size() == 0) {
+                updateHerbivoreMap(simulationMap);
+                updateGrassMap(simulationMap);
+                if (grassMap.size() == 0 || herbivoreMap.size() == 0) {
                     break;
                 }
                 Map<Coordinates, Entity> randomGrass = getRandomValueFromMap(grassMap);
@@ -42,8 +41,9 @@ public class TurnMove extends Action {
                    entryCreature.setTargetCoordinates(entryGrass.getKey());
                 }
             } else {
-                updateHerbivoreMap(executableMap);
-                if (herbivoreMap.size() == 0) {
+                updateHerbivoreMap(simulationMap);
+                updateGrassMap(simulationMap);
+                if (herbivoreMap.size() == 0 || grassMap.size() == 0) {
                     break;
                 }
                 Map<Coordinates, Creature> randomHerbivore = getRandomValueFromMap(herbivoreMap);
@@ -52,12 +52,12 @@ public class TurnMove extends Action {
                     entryCreature.setTargetCoordinates(entryHerbivore.getKey());
                 }
             }
-            List<Node> pathToTarget = AStar.findPath(executableMap, entry);
+            List<Node> pathToTarget = AStar.findPath(simulationMap, entry);
             entryCreature.setPathToTarget(pathToTarget);
-            entryCreature.makeMove(executableMap);
+            entryCreature.makeMove(simulationMap);
 
         }
-        return executableMap;
+        return simulationMap;
     }
 
     private  <T extends Entity> Map<Coordinates,  T> getRandomValueFromMap(Map<Coordinates, T> map) {

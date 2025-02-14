@@ -4,6 +4,7 @@ import com.muted987.simulation.entity.EntityFactory;
 import com.muted987.simulation.entity.Coordinates;
 import com.muted987.simulation.entity.EntitySymbol;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -27,17 +28,15 @@ public class RandomArrangement {
     }
 
     public static SimulationMap turnArrange(SimulationMap simulationMap, int amountOfEntity) {
-
-        for (Map.Entry<EntitySymbol, Integer> entry : amountOfEntities.entrySet()) {
-            int amountOfArrangedEntity = entry.getValue() - amountOfEntity;
-            if (amountOfArrangedEntity == 0) break;
-            for (int i = 1; i < amountOfArrangedEntity; i++) {
-                while (true) {
-                    Coordinates coordinates = getRandomCoordinates(simulationMap);
-                    if (simulationMap.isCellEmpty(coordinates)) {
-                        simulationMap.setEntity(EntityFactory.createEntity(entry.getKey()), coordinates);
-                        break;
-                    }
+        Map<EntitySymbol, Integer> grassAmount = new HashMap<>();
+        grassAmount.put(EntitySymbol.Grass, amountOfEntities.get(EntitySymbol.Grass));
+        int amountOfArrangedEntity = grassAmount.get(EntitySymbol.Grass) - amountOfEntity;
+        for (int i = 1; i < amountOfArrangedEntity; i++) {
+            while (true) {
+                Coordinates coordinates = getRandomCoordinates(simulationMap);
+                if (simulationMap.isCellEmpty(coordinates)) {
+                    simulationMap.setEntity(EntityFactory.createEntity(EntitySymbol.Grass), coordinates);
+                    break;
                 }
             }
         }

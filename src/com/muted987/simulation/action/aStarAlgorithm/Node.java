@@ -1,7 +1,6 @@
 package com.muted987.simulation.action.aStarAlgorithm;
 
 import com.muted987.simulation.entity.Coordinates;
-import com.muted987.simulation.entity.EntitySymbol;
 
 import java.util.Objects;
 
@@ -12,7 +11,6 @@ public class Node {
     int h; // Эвретическая оценка
     int f; //Общая оценка f = g + h
     Node parent;
-    private EntitySymbol entityType;
 
     public int getX() {
         return coordinates.getX();
@@ -30,9 +28,6 @@ public class Node {
         this.coordinates = coordinates;
     }
 
-    public EntitySymbol getEntityType() {
-        return entityType;
-    }
 
     public Node(Coordinates coordinates) {
         this.coordinates = coordinates;
