@@ -1,7 +1,8 @@
-package com.muted987.simulation.simulationMap;
+package com.muted987.simulation.render;
 
 import com.muted987.simulation.entity.Coordinates;
 import com.muted987.simulation.entity.Entity;
+import com.muted987.simulation.simulationMap.SimulationMap;
 
 public class ConsoleRender {
 

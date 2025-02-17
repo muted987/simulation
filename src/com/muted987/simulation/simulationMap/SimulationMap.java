@@ -10,9 +10,11 @@ import java.util.*;
 public class SimulationMap {
 
     private final Map<Coordinates, Entity> simulationMap = new HashMap<>();
-    private final static int MAX_X = 10;
-    private final static int MAX_Y = 10;
+    private final AmountOfEntities amountOfEntities = new AmountOfEntities();
 
+    private final static int MAX_X = 10;
+
+    private final static int MAX_Y = 10;
     public int getMAX_X() {
         return MAX_X;
     }
@@ -23,6 +25,10 @@ public class SimulationMap {
 
     public void setEntity(Entity entity, Coordinates coordinates) {
         simulationMap.put(coordinates, entity);
+    }
+
+    public AmountOfEntities getAmountOfEntities() {
+        return amountOfEntities;
     }
     public void removeEntity(Coordinates coordinates) {
         simulationMap.remove(coordinates);
@@ -94,5 +100,9 @@ public class SimulationMap {
                 return entity instanceof Rock;
         }
         return false;
+    }
+
+    public Map<EntitySymbol, Integer> getMapAmountOfEntities() {
+        return getAmountOfEntities().getAmountOfEntities();
     }
 }

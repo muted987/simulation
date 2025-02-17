@@ -1,5 +1,6 @@
 package com.muted987.simulation.simulationMap;
 
+import com.muted987.simulation.entity.Entity;
 import com.muted987.simulation.entity.EntitySymbol;
 
 import java.util.HashMap;
@@ -18,5 +19,10 @@ public class AmountOfEntities {
 
     public Map<EntitySymbol, Integer> getAmountOfEntities() {
         return amountOfEntities;
+    }
+
+
+    public void changeAmountOfEntities(EntitySymbol type, int amount) {
+        amountOfEntities.replace(type, amount);
     }
 }

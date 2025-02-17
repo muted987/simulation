@@ -9,10 +9,9 @@ import java.util.Map;
 import java.util.Random;
 
 public class RandomArrangement {
-    private static final Map<EntitySymbol, Integer> amountOfEntities = (new AmountOfEntities()).getAmountOfEntities();
 
-    public static SimulationMap initArrange() {
-        SimulationMap simulationMap = new SimulationMap();
+    public static SimulationMap initArrange(SimulationMap simulationMap) {
+        Map<EntitySymbol, Integer> amountOfEntities = simulationMap.getMapAmountOfEntities();
         for (Map.Entry<EntitySymbol, Integer> entry : amountOfEntities.entrySet()) {
             for (int i = 0; i < entry.getValue();i++) {
                 while (true) {
@@ -25,21 +24,6 @@ public class RandomArrangement {
             }
         }
         return simulationMap;
-    }
-
-    public static void turnArrange(SimulationMap simulationMap, int amountOfEntity) {
-        Map<EntitySymbol, Integer> grassAmount = new HashMap<>();
-        grassAmount.put(EntitySymbol.Grass, amountOfEntities.get(EntitySymbol.Grass));
-        int amountOfArrangedEntity = grassAmount.get(EntitySymbol.Grass) - amountOfEntity;
-        for (int i = 1; i < amountOfArrangedEntity; i++) {
-            while (true) {
-                Coordinates coordinates = getRandomCoordinates(simulationMap);
-                if (simulationMap.isCellEmpty(coordinates)) {
-                    simulationMap.setEntity(EntityFactory.createEntity(EntitySymbol.Grass), coordinates);
-                    break;
-                }
-            }
-        }
     }
 
 

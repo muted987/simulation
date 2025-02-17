@@ -1,4 +1,4 @@
-package com.muted987.simulation.action.aStarAlgorithm;
+package com.muted987.simulation.aStarAlgorithm;
 
 import com.muted987.simulation.entity.Coordinates;
 

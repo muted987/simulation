@@ -1,8 +1,8 @@
 package com.muted987.simulation.action.turnAction;
 
 import com.muted987.simulation.action.Action;
-import com.muted987.simulation.action.aStarAlgorithm.AStar;
-import com.muted987.simulation.action.aStarAlgorithm.Node;
+import com.muted987.simulation.aStarAlgorithm.AStar;
+import com.muted987.simulation.aStarAlgorithm.Node;
 import com.muted987.simulation.entity.Coordinates;
 import com.muted987.simulation.entity.Entity;
 import com.muted987.simulation.entity.EntitySymbol;

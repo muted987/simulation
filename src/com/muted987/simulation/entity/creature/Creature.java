@@ -1,13 +1,12 @@
 package com.muted987.simulation.entity.creature;
 
-import com.muted987.simulation.action.aStarAlgorithm.Node;
+import com.muted987.simulation.aStarAlgorithm.Node;
 import com.muted987.simulation.entity.Coordinates;
 import com.muted987.simulation.entity.Entity;
 import com.muted987.simulation.entity.EntitySymbol;
 import com.muted987.simulation.simulationMap.SimulationMap;
 
 import java.util.List;
-import java.util.Map;
 
 public abstract class Creature extends Entity {
     private final int moveSpeed;

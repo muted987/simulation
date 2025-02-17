@@ -3,10 +3,13 @@ package com.muted987.simulation;
 import com.muted987.simulation.action.initAction.InitArrangement;
 import com.muted987.simulation.action.Action;
 import com.muted987.simulation.action.turnAction.TurnMove;
-import com.muted987.simulation.action.turnAction.TurnSpawnGrass;
 import com.muted987.simulation.entity.EntitySymbol;
-import com.muted987.simulation.simulationMap.ConsoleRender;
+import com.muted987.simulation.render.AmountOfEntitiesRender;
+import com.muted987.simulation.render.Input;
+import com.muted987.simulation.render.MenuRender;
+import com.muted987.simulation.render.ConsoleRender;
 import com.muted987.simulation.simulationMap.SimulationMap;
+import com.muted987.simulation.validator.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +33,6 @@ public class Simulation {
     }
     private static void setTurnActions() {
         turnActions.add(new TurnMove(simulationMap));
-        turnActions.add(new TurnSpawnGrass());
     }
 
     public void simulation() {
@@ -39,10 +41,12 @@ public class Simulation {
 
     private static void startSimulation() {
         setInitActions();
+        int input;
         MenuRender.menuRender();
-        int input = Input.integer(true);
-        MenuRender.renderMenuByOption(input);
-        if (input == MENU_SECOND_OPTION) System.exit(100);
+        do {
+            input = Input.optionForMenu(true);
+            mainMenuOptionChoose(input);
+        } while (input != MENU_FIRST_OPTION);
         for (Action action : initActions) {
             simulationMap = action.execute(simulationMap);
             ConsoleRender.render(simulationMap);
@@ -50,7 +54,7 @@ public class Simulation {
         setTurnActions();
         do {
             MenuRender.inGameMenuRender();
-            input = Input.integer(true);
+            input = Input.optionForMenu(true);
             MenuRender.renderInGameMenuByOption(input);
             inGameOptionChoose(input);
             iteration(turnCount);
@@ -60,13 +64,12 @@ public class Simulation {
 
     private static void iteration(int turnCount) {
         if (!isPaused) {
-            simulationMap = turnActions.get(0).execute(simulationMap);
+            for (Action action : turnActions) {
+                simulationMap = action.execute(simulationMap);
+            }
             if (endOfSimulationCheck(simulationMap, turnCount)) {
                 isOver = true;
                 return;
-            }
-            if (turnCount % 4 == 0) {
-                turnActions.get(1).execute(simulationMap);
             }
             System.out.printf(ITERATION_COUNT_MESSAGE, turnCount);
             ConsoleRender.render(simulationMap);
@@ -81,13 +84,47 @@ public class Simulation {
         isPaused = true;
         MenuRender.pauseMenuRender();
         while (true) {
-            int input = Input.integer(true);
+            int input = Input.optionForMenu(true);
             if (input == MENU_FIRST_OPTION) {
                 isPaused = false;
                 break;
             } else if (input == MENU_SECOND_OPTION) {
                 endSimulation();
             }
+        }
+    }
+
+    private static void changeAmountOfEntity() {
+        int option;
+        do {
+            MenuRender.renderChangeAmountOfEntityMenu();
+            option = Input.optionForMenu(true);
+            switch (option) {
+                case MENU_FIRST_OPTION:
+                        AmountOfEntitiesRender.render(simulationMap);
+                        break;
+                    case MENU_SECOND_OPTION:
+                        System.out.println("Enter type. (Types of entity: Grass, Rock, Tree, Herbivore, Predator)");
+                        EntitySymbol type = Input.entityType();
+                        System.out.println("Enter amount");
+                        int amount = Input.integer();
+                        if (Validator.validateIntInputForEntitySymbolAmount(amount, simulationMap)) {
+                            simulationMap.getAmountOfEntities().changeAmountOfEntities(type, amount);
+                        }
+                        break;
+                }
+        } while (option != MENU_THIRD_OPTION);
+        MenuRender.menuRender();
+    }
+
+
+    private static void mainMenuOptionChoose(int input) {
+        switch (input) {
+            case MENU_SECOND_OPTION:
+                changeAmountOfEntity();
+                break;
+            case MENU_THIRD_OPTION:
+                endSimulation();
         }
     }
 
